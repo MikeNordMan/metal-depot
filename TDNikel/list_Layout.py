@@ -4,7 +4,9 @@
 
 import PySimpleGUI as sg
 from marki import names
+from generatorNumberDok import generatorNumDok
 
+keyBotton = 'tdn'
 myRow = 15  # Колличество строк которые будут появляться
 lStrText = 12 # длинна текстового поля
 lenRasdelLine = 75 # Длинна разделительной линии
@@ -14,8 +16,10 @@ def new_Admission ():
     '''Часть Layout отвечающаяя за заголовок'''
 
     heder = [
-             [sg.Text('Дата поступления:', pad=(5, 0)), sg.InputText(key='data', pad=(60, 0), size=(15, 1))],
-             [sg.Text('Транспорт (Марка, номер)', pad=(5, 0)), sg.InputText(key='auto', pad=(15, 10), size=(15, 1))],
+             [sg.Text('Номер Сопроводительной:', pad=(5, 5)), sg.Text(generatorNumDok(keyBotton), pad=(50, 0))],
+             [sg.Text('Дата поступления:', pad=(5, 5)), sg.InputText(key='data', pad=(60, 0), size=(15, 1))],
+             [sg.Text('Поставщик:', pad=(5, 5)), sg.InputText(key='post', pad=(100, 0), size=(15, 1))],
+             [sg.Text('Транспорт (Марка, номер)', pad=(5, 5)), sg.InputText(key='auto', pad=(15, 5), size=(15, 1))],
              [sg.Text('_' * lenRasdelLine)],  # Разделительная линия
              [sg.Text('Наименование', size=(lStrText, 1)), sg.Text('Вес Нетто (кг)', size=(lStrText, 1)),
               sg.Text('Засор ( % )', size=(lStrText, 1)) , sg.Text('Вес Брутто (кг)', size=(lStrText, 1))]
