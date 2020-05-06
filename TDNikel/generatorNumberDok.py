@@ -5,31 +5,51 @@
  создаем цифровой массив в котором находим наибольшее значение и передаем его в функцию ( resalt ) которая 
  увеличивает значение на 1 и конконтенирует с ключем и возвращает новый код документа.  
  '''
+'''Задача выполнена Модуль работает'''
+
+import  sqlite3
+
 keyN = 'tdn' # Тестовый ключ
 #keyN = 'real' # Тестовый ключ
 #keyN = 'trans' # Тестовый ключ
-
-
-a = ['tdn2', 'tdn3', 'real24', 'trans52', 'tdn4', 'trans60', 'trans2', 'tdn5', 'tdn5'] # Тестовый массив документов
-
+#keyN = 'tra' # Тестовый ключ
 
 '''Функция получения массива документов из БД'''
+def searchNumberdoK():
+    '''Поправить передачу в функцию имя БД'''
 
+    connect = sqlite3.connect('myDB.db')
+    cursor = connect.cursor()
+    query = 'SELECT numberDok FROM user '
 
+    cursor.execute(query)
+    data = cursor.fetchall()
 
+    new_data = []
+    for i in data:
+        new_data.append(i[0])
+    data = new_data
+    del(new_data)
+    #print(data)
+    return data
 
 ''' Функция сортировки массива по ключу'''
 def sortingArr(inArr, keyN): # Вход: Массив из базы данных , ключ
     arrSort = []
+    arrNum = []
     for i in range(len(inArr)):
         if inArr[i].find(keyN)==0:
-            arrSort.append(a[i])
-    #print(arrSort)
-    arrNum = []
-    for i in range(len(arrSort)):
-        arrNum.append(int(lineBrk(arrSort[i], keyN)))
-    # print(arrNum)
-    return arrNum # Выход: Цифровой Массив
+            arrSort.append(inArr[i])
+   # print(arrSort)
+    if arrSort==[]:
+       arrNum.append('0')
+      # print(arrNum)
+       return arrNum
+    else:
+        for i in range(len(arrSort)):
+            arrNum.append(int(lineBrk(arrSort[i], keyN)))
+        # print(arrNum)
+        return arrNum # Выход: Цифровой Массив
 
 ''' Функция разбития строки для получения номера'''
 
@@ -53,11 +73,15 @@ def resalt(keyN, number): # Вход: ключь, последний номер 
     #print(resalt)
     return resalt # Выход: Новый номер документа
 
-
-def generatorNumDok(arrBD, keyN):
+''' Главная Функция Модуля по ключу получаем для БД генерацию номера документа'''
+def generatorNumDok(keyN):
+    #arrBD =[]
+    arrBD = searchNumberdoK()
+    #print(arrBD)
     c = sortingArr(arrBD, keyN)
     numDok = resalt(keyN, maxZnach(c))
     print(numDok)
+    return numDok
 
 
-generatorNumDok(a, keyN)
+generatorNumDok(keyN) # Тест функции
