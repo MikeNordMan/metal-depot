@@ -5,6 +5,7 @@ import PySimpleGUI as sg
 # поэтому это необходимо делать в теле цикла (вариант  - 1),
 # или в цикле вызывать функцию создающую Layout (вариант - 2)
 text = 'Начальный текст'
+from list_Layout import new_Admission
 
 def changeText():
     text = window2.Element('-imput-')
@@ -24,9 +25,9 @@ def layout3 ():
 
 layout = [[sg.Text('Второе Окно'), sg.Text('Третье Окно')],
           [sg.Text(text, key='-mainText-')],
-          [sg.Button('Window 2', key='-win2-'),sg.Button('Window 3', key='-win3-')]]
+          [sg.Button('Window 2', key='-win2-'), sg.Button('Поступление', key='-winAdd-')]]
 
-window3_active = False # Переменная активности третьего окна
+windowAdmission_active = False # Переменная активности третьего окна
 window2_active = False # Переменная активности второго окна
 
 window1 = sg.Window('Первое Окно', layout, size=(300, 100))
@@ -48,17 +49,20 @@ while True:
                 window1.Element('-mainText-').Update(values2['in'])
                 window1.UnHide()
                 break
-    if event == '-win3-' and not window3_active:
-        window3_active = True
+    if event == '-winAdd-' and not windowAdmission_active:
+        windowAdmission_active = True
         window1.Hide()
-        layout3 = layout3()
-            #       layout2 = [[sg.Text('Второе Окно')],     Вариант - 1
-            #                   [sg.Button('Exit in First Window', key='-in_comeback-')]]
-        window3 = sg.Window('Третье окно!!!').Layout(layout3)
+        #layoutAddmission = new_Admission()
+        #       layout2 = [[sg.Text('Второе Окно')],     Вариант - 1
+        #                   [sg.Button('Exit in First Window', key='-in_comeback-')]]
+        #windowAdmission = sg.Window('Третье окно!!!').Layout(layout3)
+
+
+        windowAdmission = sg.Window('Формирование поступления материала', new_Admission(), auto_size_text=True)
         while True:
-            event3, values3 = window3.Read()
-            if event3 is None or event3 == '-in_comeback-':
-                window3.Close()
-                window3_active = False
+            eventAdd, valuesAdd = windowAdmission.Read()
+            if eventAdd is None:
+                windowAdmission.Close()
+                windowAdmission_active = False
                 window1.UnHide()
                 break

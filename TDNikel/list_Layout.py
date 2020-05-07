@@ -45,3 +45,5 @@ def new_Admission ():
     layout = heder + [[sg.Column(mol[x], key='col' + str(x + 1), visible=False)] for x in
                       range(myRow)] + colButton + exitMesagge
     return layout
+def buttonPrint():
+    print('Проверка кнопи из Функции')
