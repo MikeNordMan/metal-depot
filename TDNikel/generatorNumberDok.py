@@ -80,7 +80,7 @@ def generatorNumDok(keyN):
     #print(arrBD)
     c = sortingArr(arrBD, keyN)
     numDok = resalt(keyN, maxZnach(c))
-    print(numDok)
+    #print(numDok)
     return numDok
 
 
