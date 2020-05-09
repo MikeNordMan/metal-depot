@@ -2,12 +2,13 @@
 from workWithList import *
 
 '''Функция добовления кол-ва строк'''
-def visibleRow(x, y, window): # Вход: Счетчик открытых строк, кол-во возможных строк, наименование окна
+def visibleRow(x,y, window): # Вход: Счетчик открытых строк, кол-во возможных строк, наименование окна
    if x<y:
-        x=x+1
-        nu='col'+str(x)
-        window.Element(nu).Update(visible=True)
-        return x
+       x=x+1
+       nu='col'+str(x)
+       window.Element(nu).Update(visible=True)
+       #  window.FindElement(nu).Update(visible=True)
+       return x
    return x # Выход:  счетчик строк
 
 '''Функция сокращения кол-ва строк'''
@@ -20,12 +21,12 @@ def visibleRowUn(x, window): # Вход: Счетчик открытых стр�
    return x # Выход:  счетчик строк
 
 '''Функция сохранения данных из строк кол-ва строк'''
-def messageSave(window, values, time, dok):
-    print(dok)
-    print(time)
+def messageSave(window, values, time, dok, count):
+    #print(dok)
+    #print(time)
     y = list(dict.values(values))
-    print(y)
-    readyToDB(firstPartArr(y), secondPartArr(y))
+    #print(y)
+    readyToDB(y, time, dok, int(count))
     #a=firstPartArr(y)
     #b=[]
    # b.append(a[0])

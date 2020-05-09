@@ -5,14 +5,15 @@
 import PySimpleGUI as sg
 from marki import names
 from generatorNumberDok import generatorNumDok
-
 keyBotton = 'tdn'
-myRow = 3  # Возможное колличество строк для появления
-lStrText = 12 # длинна текстового поля
-lenRasdelLine = 75 # Длинна разделительной линии
-openStrAdd = 0 # Колличество открытых строк
+myRow = 15  # Возможное колличество строк для появления
+lStrText = 12  # длинна текстового поля
+lenRasdelLine = 75  # Длинна разделительной линии
+openStrAdd = 0  # Колличество открытых строк
 
 def new_Admission ():
+
+
 
     '''Часть Layout отвечающаяя за заголовок'''
 
@@ -48,8 +49,11 @@ def new_Admission ():
 
     layout = heder + [[sg.Column(mol[x], key='col' + str(x + 1), visible=False)] for x in
                       range(myRow)] + colButton + exitMesagge
-    return layout
 
+   # window = sg.Window('Формирование поступления материала', layout, auto_size_text=True, finalize=True)
+
+    #return window
+    return  layout
 '''-----------------------------------------Функции----------------------------------------------------'''
 def buttonPrint():
     print('Проверка кнопи из Функции')

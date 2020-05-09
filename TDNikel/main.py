@@ -47,7 +47,6 @@ while True:  # Event Loop
     if event == '-winAdd-' and not windowAdmission_active:
         windowAdmission_active = True
         windowMain.Hide()  # Глушим основное окно
-
         windowAdmission = sg.Window('Формирование поступления материала', new_Admission(), auto_size_text=True)
         while True:
             eventAdd, valuesAdd = windowAdmission.Read()
@@ -57,42 +56,46 @@ while True:  # Event Loop
                 windowAdmission_active = False
                 windowMain.UnHide()
                 windowAdmission.close()
+
+                #eventAdd =[]
                 break
             if eventAdd == 'printF':
                 print('Проверка кнопки')
                 buttonPrint()
 
             if eventAdd == '-addStr-': # Добовление строки (Написать условия проверки недопустимости появления пустых строк)
+                #print(eventAdd)
                 if flagAdd == True:
                     openStrAdd = visibleRow(openStrAdd, myRow, windowAdmission)
                     flagAdd = False
-                    print(valuesAdd)
+                    #print(valuesAdd)
                 else:
-                    print(valuesAdd)
+                    #print(valuesAdd)
                     if valuesAdd['mar' + str(openStrAdd)] != '' and valuesAdd['ves' + str(openStrAdd)] != '':
                         openStrAdd = visibleRow(openStrAdd, myRow, windowAdmission)
-                print('Пустое значение строки')
+               # print('Пустое значение строки')
 
             if eventAdd =='-offStr-' : # Удалениение строки (Написать условия проверки удаления строк)
                 openStrAdd = visibleRowUn(openStrAdd, windowAdmission)
-                print(openStrAdd)
+                #print(openStrAdd)
 
             if eventAdd == '-save-': # Сохранение Документа
                 #print(valuesAdd)
-                messageSave(windowAdmission, valuesAdd, now.strftime('%d.%m.%Y'), generatorNumDok(keyBotton))
+                messageSave(windowAdmission, valuesAdd, now.strftime('%d.%m.%Y'), generatorNumDok(keyBotton), openStrAdd)
+                openStrAdd = 0
 
             for i in range(myRow):
-                if valuesAdd['-zasor-' + str(i + 1)] != '0':
-                    print('хорошо')
-                    try:
+               if valuesAdd['-zasor-' + str(i + 1)] != '0':
+                  # print('хорошо')
+                   try:
                         windowAdmission.Element('res' + str(i + 1)).Update(
                         int(sumP(int(valuesAdd['ves' + str(i + 1)]), int(valuesAdd['-zasor-' + str(i + 1)]))))
                         windowAdmission.Element('txt').Update('')
-                    except ValueError:
+                   except ValueError:
                         windowAdmission.Element('txt').Update('Введите числовые значения!')
-                        print('Получилось нах')
-                else:
-                        windowAdmission.Element('res' + str(i + 1)).Update((valuesAdd['ves' + str(i + 1)]))
+                   #     print('Получилось нах')
+               else:
+                    windowAdmission.Element('res' + str(i + 1)).Update((valuesAdd['ves' + str(i + 1)]))
 
 
         windowAdmission.close()
