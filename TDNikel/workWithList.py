@@ -18,25 +18,45 @@ def secondPartArr(a, n):
     #print(a)
     return a
 
-def readyToDB(arr, element1, element2, count): # Описать Функцию пока не забыл
+def readyToDB(arr, element1, element2, count, flag): # Описать Функцию пока не забыл
     '''Функция родготовки и отправки мфссива в БД'''
     #print(arr)
     a=firstPartArr(arr, 3)
     a=insertElement(a, 1, element1)
     a=insertElement(a, 2, element2)
-    b=secondPartArr(arr,3)
+    b=secondPartArr(arr, 3)
     #x = int(len(b)/3)
     path2 = []
-    for i in range(count):
-        for z in range(3):
-            path2.append(b[z])
-        res = a + path2
-        res =vesNetto(res)
-        #print(res)  # Тут отправляем в БД
-        addBD(res)
-        path2 = []
-        for s in range(3):
-            b.remove(b[0])
+    print('Действие')
+    print(flag)
+    if flag == 'real':
+        for i in range(count):
+            for z in range(3):
+                path2.append(b[z])
+            #print('Данные до конвертации')
+            #print(path2)
+            path2=dataMinus(path2)
+            #print('Конвертация значений')
+            #print(path2)
+            res = a + path2
+            res =vesNetto(res)
+            #print(res)  # Тут отправляем в БД
+            addBD(res)
+            path2 = []
+            for s in range(3):
+                b.remove(b[0])
+    if flag == 'tdn':
+        for i in range(count):
+            for z in range(3):
+                path2.append(b[z])
+            res = a + path2
+            res =vesNetto(res)
+            #print(res)  # Тут отправляем в БД
+            addBD(res)
+            path2 = []
+            for s in range(3):
+                b.remove(b[0])
+
 
 '''Функция помещения значения в массив в нужное место'''
 def insertElement (arr, nomberAfter, Element): # Вход: Массив, место помещения элемента, елемент
@@ -66,16 +86,17 @@ def vesNetto(arr):
         arr.append(int(res))
         return arr
 
-def addBD(readyArr): # Неработает Попытка после изменения БД
+def addBD(readyArr): #
     #a = []
     readyArr.append('_')
-    # print(values)
-    #for i in readyArr:
-     #   a.append(readyArr.get(i))
-    #print(a)
     dbinsert(readyArr)
     print('Сохранено')
 
+def dataMinus(Arr):
+    exitArr = []
+    Arr[1] = str(int(Arr[1])*(-1))
+    Arr[2] = str(int(Arr[2]) * (-1))
+    return Arr
 '''Тест'''
 
 #testP = insertElement(test, 1, element1)
@@ -84,4 +105,5 @@ def addBD(readyArr): # Неработает Попытка после измен
 #print(vesNetto(testP))
 #print(testP)
 #readyToDB(test, element1, element2)
+#readyToDB(test, element1, element2, 2, 'tdn')
 

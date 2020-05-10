@@ -21,12 +21,12 @@ def visibleRowUn(x, window): # Вход: Счетчик открытых стр�
    return x # Выход:  счетчик строк
 
 '''Функция сохранения данных из строк кол-ва строк'''
-def messageSave(window, values, time, dok, count):
+def messageSave(window, values, time, dok, count, key):
     #print(dok)
     #print(time)
     y = list(dict.values(values))
     #print(y)
-    readyToDB(y, time, dok, int(count))
+    readyToDB(y, time, dok, int(count), key)
     #a=firstPartArr(y)
     #b=[]
    # b.append(a[0])
