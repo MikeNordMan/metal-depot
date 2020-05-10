@@ -1,4 +1,4 @@
-from DB import searchElement
+from DB import *
 import marki
 import PySimpleGUI as sg
 from layout_AddMaterial import *
@@ -7,12 +7,26 @@ import datetime
 from workWithList import *
 
 now = datetime.datetime.now() # Получаем текущую дату
+now = now.strftime('%d.%m.%Y')
 flagAdd =True  # Переменная для проверки создания пустых строк
 text = 'Привет'
-listbox = ['1tdn20','1real20','3tdn20']
+listbox = ['1tdn20', '1real20', '3tdn20']
+
+'''Функция Формирования Журнала Событий'''
+def ivetLog(nowDate): # Вход сегодняшняя дата
+    a =[]
+    istboxData =[]
+    a = searchElementInBD('numberDok', 'dataDok', str(nowDate))
+    #print('Промежуточный массив :')
+    #print(a)
+    listboxData = findRepitData(a)
+    #print('Это listBox : ')
+    #print(listboxData)
+    return listboxData # Выход: массив для листбокса
+
+
 
 '''Функция формирующая Остатки на складе '''
-# Прописать фнкцию и определить ей место!!!!
 def ost():
     a = ''
     for element in range(len(marki.names)):
@@ -23,9 +37,9 @@ def ost():
 
 '''Основной Layout'''
 layout =[
-        [sg.Frame('', [[sg.Text('Остатки на складе', size=(30, 1))], [sg.Multiline(default_text=ost(), size=(35, 20))]]),
+        [sg.Frame('', [[sg.Text('Остатки на складе', size=(30, 1))], [sg.Multiline(default_text=ost(), key='depot', size=(35, 20))]]),
         sg.Frame('', [[sg.Button('Поступление', key='-winAdd-', size=(10, 1))], [sg.Button('Реализация', size=(10, 1))], [sg.Button('Переработка', size=(10, 1))]]),
-        sg.Frame('', [[sg.Text('Дата'), sg.InputText(now.strftime('%d.%m.%Y'), key='nowDate', size=(10,1))], [sg.Listbox(values=listbox, size=(20, 19))]])],
+        sg.Frame('', [[sg.Text('Дата'), sg.InputText(now, key='nowDate', size=(10,1))], [sg.Listbox(values=ivetLog(now), key='eventLog', size=(20, 19))]])],
 
         [sg.Text('_'  * 90)],
 
@@ -42,6 +56,7 @@ while True:  # Event Loop
 
     if event in (None, '-exit-'):
         break
+    #windowMain.FindElement('depot').Update(ost())
 
     '''Открытие окна Поступление'''
     if event == '-winAdd-' and not windowAdmission_active:
@@ -81,8 +96,10 @@ while True:  # Event Loop
 
             if eventAdd == '-save-': # Сохранение Документа
                 #print(valuesAdd)
-                messageSave(windowAdmission, valuesAdd, now.strftime('%d.%m.%Y'), generatorNumDok(keyBotton), openStrAdd)
+                messageSave(windowAdmission, valuesAdd, now, generatorNumDok(keyBotton), openStrAdd)
                 openStrAdd = 0
+                windowMain.FindElement('depot').Update(ost())
+                windowMain.FindElement('eventLog').Update(ivetLog(now))
 
             for i in range(myRow):
                if valuesAdd['-zasor-' + str(i + 1)] != '0':

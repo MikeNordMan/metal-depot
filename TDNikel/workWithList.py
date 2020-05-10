@@ -66,13 +66,14 @@ def vesNetto(arr):
         arr.append(int(res))
         return arr
 
-def addBD(readyArr): # Неработает
-    a = []
+def addBD(readyArr): # Неработает Попытка после изменения БД
+    #a = []
+    readyArr.append('_')
     # print(values)
-    for i in readyArr:
-        a.append(readyArr.get(i))
-    print(a)
-    dbinsert(a)
+    #for i in readyArr:
+     #   a.append(readyArr.get(i))
+    #print(a)
+    dbinsert(readyArr)
     print('Сохранено')
 
 '''Тест'''

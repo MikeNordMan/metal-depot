@@ -9,11 +9,12 @@ layout = [[sg.Text('Список полей для Базы данных'), sg.T
               [sg.Text('Дата создания документа:', size=(20, 1)), sg.Input(key='-IN2-', size=(15, 1))],
               [sg.Text('Номер сопроводительной:', size=(20, 1)), sg.Input(key='-IN3-', size=(15, 1))],
               [sg.Text('Поставщик:', size=(20, 1)), sg.Input(key='-IN4-', size=(15, 1))],
-              [sg.Text('Ноименование марки:', size=(20, 1)), sg.InputCombo(name, key='-IN5-', size=(15, 1))],
-              [sg.Text('Вес Брутто:', size=(20, 1)), sg.Input(key='-IN6-', size=(15, 1))],
-              [sg.Text('Засор:', size=(20, 1)), sg.Input(key='-IN7-', size=(15, 1))],
-              [sg.Text('Вес нетто:', size=(20, 1)), sg.Input(key='-IN8-', size=(15, 1))],
-              [sg.Text('Свободное поле:',size=(20, 1)), sg.Input(key='-IN9-', size=(15, 1))],
+              [sg.Text('Транспорт а/м:', size=(20, 1)), sg.InputText(key='-IN5-', size=(15, 1))],
+              [sg.Text('Ноименование марки:', size=(20, 1)), sg.InputCombo(name, key='-IN6-', size=(15, 1))],
+              [sg.Text('Вес Брутто:', size=(20, 1)), sg.Input(key='-IN7-', size=(15, 1))],
+              [sg.Text('Засор:', size=(20, 1)), sg.Input(key='-IN8-', size=(15, 1))],
+              [sg.Text('Вес нетто:', size=(20, 1)), sg.Input(key='-IN9-', size=(15, 1))],
+              [sg.Text('Свободное поле:',size=(20, 1)), sg.Input(key='-IN10-', size=(15, 1))],
 
               [sg.Button('Сохранить в БД', key='-Save-'), sg.Button('Exit')]]
 
